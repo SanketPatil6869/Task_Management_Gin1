@@ -26,3 +26,9 @@ func CreateTask(c *gin.Context) {
 	config.DB.Create(&task)
 	c.JSON(http.StatusOK, gin.H{"Data": task})
 }
+
+func FindTasks(c *gin.Context) {
+	var tasks []models.Task
+	config.DB.Find(&tasks)
+	c.JSON(http.StatusOK, gin.H{"Data": tasks})
+}

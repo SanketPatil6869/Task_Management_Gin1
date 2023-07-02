@@ -1,6 +1,7 @@
 package config
 
 import (
+	"github.com/SanketPatil6869/Task_Management_Gin1/models"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -14,5 +15,6 @@ func ConnectDatabase() {
 		panic("Failed to connect database")
 	}
 
+	database.AutoMigrate(&models.Task{})
 	DB = database
 }

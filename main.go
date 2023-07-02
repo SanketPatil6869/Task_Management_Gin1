@@ -13,5 +13,6 @@ func main() {
 
 	/* routes */
 	router.POST("/create", controller.CreateTask)
+	router.GET("/tasks", controller.FindTasks)
 	defer router.Run()
 }
