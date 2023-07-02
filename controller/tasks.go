@@ -32,3 +32,12 @@ func FindTasks(c *gin.Context) {
 	config.DB.Find(&tasks)
 	c.JSON(http.StatusOK, gin.H{"Data": tasks})
 }
+
+func FindTask(c *gin.Context) {
+	var task models.Task
+	if err := config.DB.Where("id = ?", c.Param("id")).First(&task).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record Not Found!"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"Data": task})
+}
