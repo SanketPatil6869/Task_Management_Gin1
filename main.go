@@ -15,5 +15,6 @@ func main() {
 	router.POST("/create", controller.CreateTask)
 	router.GET("/tasks", controller.FindTasks)
 	router.GET("/task/:id", controller.FindTask)
+	router.PUT("/updateTask/:id", controller.UpdateTask)
 	defer router.Run()
 }

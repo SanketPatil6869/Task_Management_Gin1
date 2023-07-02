@@ -14,6 +14,12 @@ type CreateTaskInput struct {
 	Due_Date    string `json:"due_date" binding:"required"`
 	Status      string `json:"status" binding:"required"`
 }
+type UpdateTaskInput struct {
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Due_Date    string `json:"due_date"`
+	Status      string `json:"status"`
+}
 
 func CreateTask(c *gin.Context) {
 	var input CreateTaskInput
@@ -39,5 +45,20 @@ func FindTask(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record Not Found!"})
 		return
 	}
+	c.JSON(http.StatusOK, gin.H{"Data": task})
+}
+
+func UpdateTask(c *gin.Context) {
+	var task models.Task
+	if err := config.DB.Where("id = ?", c.Param("id")).First(&task).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record Not Found!"})
+		return
+	}
+	var input UpdateTaskInput
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	config.DB.Model(&task).Updates(input)
 	c.JSON(http.StatusOK, gin.H{"Data": task})
 }
