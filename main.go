@@ -1,12 +1,14 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/SanketPatil6869/Task_Management_Gin1/config"
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
-	router := gin.New()
-	router.GET("/", func(ctx *gin.Context) {
-		ctx.String(200, "Hello world")
-	})
+	router := gin.Default()
+
+	config.ConnectDatabase()
 
 	router.Run()
 }
