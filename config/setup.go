@@ -8,6 +8,8 @@ import (
 
 var DB *gorm.DB
 
+//var DB2 *sql.DB
+
 func ConnectDatabase() {
 	database, err := gorm.Open(sqlite.Open("task_management.db"), &gorm.Config{})
 
